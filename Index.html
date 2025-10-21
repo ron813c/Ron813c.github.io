@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web3 Mining Portal</title>
+    
+    <style>
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --bg-color: #f4f7f9;
+            --card-bg: #ffffff;
+            --sidebar-bg: #2c3e50;
+            --text-color: #333;
+            --online-color: #28a745;
+            --alert-color: #ffc107;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            display: flex;
+            color: var(--text-color);
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation (Desktop Default) */
+        #sidebar {
+            width: 250px;
+            background-color: var(--sidebar-bg);
+            color: #ecf0f1;
+            height: 100vh;
+            padding: 20px 0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            position: fixed;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #nav-menu a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #bdc3c7;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        #nav-menu a:hover, #nav-menu a.active {
+            background-color: #34495e;
+            color: white;
+            border-left-color: var(--primary-color);
+        }
+
+        .menu-group-title {
+            padding: 15px 20px 5px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: #7f8c8d;
+            font-weight: bold;
+        }
+
+        /* Main Content Area (Desktop Default) */
+        #main-content {
+            flex-grow: 1;
+            margin-left: 250px;
+            padding: 30px;
+            min-height: 100vh;
+        }
+        
+        /* Mobile Toggle Button (Hidden on Desktop) */
+        #mobile-menu-toggle {
+            display: none;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1001;
+            border-radius: 5px;
+        }
+        
+        /* COMMON STYLES */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+        #status-indicators span {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+
+        .online { background-color: var(--online-color); color: white; }
+        .alert { background-color: var(--alert-color); color: var(--text-color); }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        .stat-grid div {
+            padding: 10px;
+            border-left: 3px solid var(--primary-color);
+            background-color: #ecf0f1;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-right: 10px;
+            transition: background-color 0.2s;
+            margin-top: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .hidden { display: none; }
+        
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 768px) {
+            
+            /* Sidebar becomes fixed, off-screen by default */
+            #sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+                width: 70%; /* Takes up 70% of screen */
+                box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            /* Show sidebar when active */
+            #sidebar.active {
+                transform: translateX(0);
+            }
+
+            /* Main content takes up full width */
+            #main-content {
+                margin-left: 0;
+                padding: 15px;
+                padding-top: 60px; /* Space for the toggle button */
+            }
+
+            /* Show the mobile toggle button */
+            #mobile-menu-toggle {
+                display: block;
+            }
+            
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            #status-indicators {
+                margin-top: 10px;
+            }
+            
+            .stat-grid {
+                grid-template-columns: 1fr; /* Stack stats vertically on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <button id="mobile-menu-toggle" onclick="document.getElementById('sidebar').classList.toggle('active')">☰ Menu</button>
+    <div id="sidebar">
+        <div class="logo">💻 Web3 Manager</div>
+        <nav id="nav-menu"></nav>
+    </div>
+    <div id="main-content">
+        <header>
+            <h1><span id="section-title">Dashboard</span></h1>
+            <div id="status-indicators">
+                <span class="status-badge online">Node Status: Online</span>
+                <span class="status-badge alert">Hashrate: 1.2 TH/s</span>
+            </div>
+        </header>
+
+        <section id="content-area">
+            <div class="card" id="mining-stats">
+                <h2>Real-Time Mining Performance</h2>
+                <div class="stat-grid">
+                    <div><strong>Algorithm:</strong> <span id="stat-algo">SHA-256</span></div>
+                    <div><strong>Pool:</strong> <span id="stat-pool">stratum+tcp://stratum.braiins.com:3333</span></div>
+                    <div><strong>Worker:</strong> <span id="stat-worker">ron47ron1.mining</span></div>
+                    <div><strong>Efficiency:</strong> <span id="stat-eff">50 J/TH</span></div>
+                    <div><strong>Temperature:</strong> <span id="stat-temp">68°C</span></div>
+                </div>
+                <button onclick="App.Core.startMiningSession('SHA-256', 'stratum+tcp://stratum.braiins.com:3333', 'ron47ron1.mining')">Start Mining</button>
+                <button onclick="App.Core.stopMiningSession('session-123')">Stop Mining</button>
+            </div>
+
+            <div class="card hidden" id="financial-section">
+                <h2>Financial & Reward Management</h2>
+                <p>Use the wallet manager to set payout thresholds and view asset portfolio.</p>
+                <div class="stat-grid">
+                    <div><strong>Payout Address:</strong> <code id="payout-wallet-address">N/A</code></div>
+                </div>
+                <button onclick="App.Financial.setMiningRewardWallet('bc1q5esdqxxpx0xtld0fn28cnr97lfph3m5jgjshgv')">Set My Wallet</button>
+                <button onclick="App.Financial.exportFinancialLedgerCSV('2024-Q1')">Export Ledger (CSV)</button>
+            </div>
+        </section>
+    </div>
+    <script>
+        // Data is now a variable in the global scope instead of a file
+        const menuData = [
+            {
+                "title": "⚙️ Core Mining & Infrastructure",
+                "links": [
+                    {"name": "Mining Control", "id": "mining-control", "functions": ["startMiningSession", "stopMiningSession", "configureMiningAlgorithm"]},
+                    {"name": "Performance & Diagnostics", "id": "performance", "functions": ["viewMinerPerformanceStats", "checkHardwareHealth"]},
+                    {"name": "Node & Network", "id": "network", "functions": ["bootstrapNewNode", "viewNetworkThroughputStats"]}
+                ]
+            },
+            {
+                "title": "📊 Events & Data Integration",
+                "links": [
+                    {"name": "Real-Time Data Feeds", "id": "data-feeds", "functions": ["subscribeToMempoolEvents", "configureRealTimePriceAlerts"]},
+                    {"name": "Automated Response", "id": "automation", "functions": ["setupCustomEventTriggers", "setupWebhookListener"]}
+                ]
+            },
+            {
+                "title": "💰 Financial & Reward Management",
+                "links": [
+                    {"name": "Wallet & Payouts", "id": "payouts", "functions": ["setMiningRewardWallet", "exportFinancialLedgerCSV"]},
+                    {"name": "Asset Portfolio", "id": "portfolio", "functions": ["viewAssetPortfolio", "setAutoRebalancingStrategy"]}
+                ]
+            },
+            {
+                "title": "🔒 Security & Developer Tools",
+                "links": [
+                    {"name": "Security & Audit", "id": "security", "functions": ["revokeApiKey", "implementRoleBasedAccessControl"]},
+                    {"name": "API/SDK Portal", "id": "api-sdk", "functions": ["generateApiKey", "testApiEndpoint"]}
+                ]
+            }
+        ];
+    </script>
+
+    <script>
+        // A global object to house all functionality, mimicking an SDK/API structure
+        const App = {
+            // --- Mock Data & Setup ---
+            config: {
+                currentAlgorithm: 'SHA-256',
+                // CHANGED: Initial Pool and Worker Configuration
+                currentPool: 'stratum+tcp://stratum.braiins.com:3333',
+                currentWorker: 'ron47ron1.mining',
+                currentPassword: 'Ariel$$12345',
+                currentSessionID: null,
+                // 🛑 IMPORTANT: UPDATED PAYOUT ADDRESS TO YOUR BTC WALLET
+                payoutWalletAddress: 'bc1q5esdqxxpx0xtld0fn28cnr97lfph3m5jgjshgv' 
+            },
+
+            // --- 1. Core Mining & Infrastructure ---
+            Core: {
+                // CHANGED: startMiningSession to accept workerName
+                startMiningSession(algorithm, poolAddress, workerName) {
+                    App.config.currentSessionID = 'session-' + Math.random().toString(16).slice(2);
+                    // The IDs need to target the elements in the *main-content* area, not the hidden ones.
+                    document.getElementById('stat-algo').textContent = algorithm;
+                    document.getElementById('stat-pool').textContent = poolAddress;
+                    // ADDED: Update worker name display
+                    const workerDisplay = document.getElementById('stat-worker');
+                    if (workerDisplay) workerDisplay.textContent = workerName;
+
+                    console.log(`[MINING] Session started: ${App.config.currentSessionID} on ${algorithm} at ${poolAddress} with worker ${workerName} and password ${App.config.currentPassword}`);
+                    alert(`Mining Started! Session ID: ${App.config.currentSessionID}`);
+                },
+                stopMiningSession(sessionID) {
+                    App.config.currentSessionID = null;
+                    console.log(`[MINING] Session ${sessionID} gracefully halted.`);
+                    alert(`Mining Halted for session: ${sessionID}`);
+                },
+                configureMiningAlgorithm(algorithm, parameters = {}) {
+                    console.log(`[CONFIG] Algorithm set to ${algorithm} with params:`, parameters);
+                },
+                viewMinerPerformanceStats() {
+                    // Mock real-time data retrieval from a WebSocket/API
+                    const hashrate = (Math.random() * 2 + 1).toFixed(2);
+                    const temp = (Math.random() * 10 + 65).toFixed(0);
+                    // This updates the main header stats
+                    const statusIndicator = document.querySelector('#status-indicators .alert');
+                    if(statusIndicator) statusIndicator.textContent = `Hashrate: ${hashrate} TH/s`;
+                    
+                    // This attempts to update the card content, only if it's visible/rendered
+                    const tempStat = document.getElementById('stat-temp');
+                    if (tempStat) tempStat.textContent = `${temp}°C`;
+
+                    console.log(`[STATS] Performance updated. Hashrate: ${hashrate} TH/s`);
+                },
+                checkHardwareHealth(deviceID) {
+                    const status = Math.random() > 0.1 ? 'OK' : 'ERROR: High fan speed';
+                    console.log(`[HARDWARE] Device ${deviceID} status: ${status}`);
+                    alert(`Hardware Check: ${status}`);
+                },
+                bootstrapNewNode(cloudProvider, region) {
+                    console.log(`[NETWORK] Deploying new node via ${cloudProvider} in ${region}...`);
+                }
+            },
+
+            // --- 2. Financial & Reward Management ---
+            Financial: {
+                setMiningRewardWallet(address) {
+                    App.config.payoutWalletAddress = address;
+                    // Update the displayed address if the financial section is visible
+                    const displayElement = document.getElementById('payout-wallet-address');
+                    if(displayElement) displayElement.textContent = App.config.payoutWalletAddress;
+                    console.log(`[FINANCE] Payout Wallet set to: ${address}`);
+                    alert(`Payout Wallet Address Successfully Set to: ${address}`);
+                },
+
+                exportFinancialLedgerCSV(dateRange) {
+                    // Mock generation and download
+                    console.log(`[FINANCE] Generating CSV ledger for ${dateRange} with wallet ${App.config.payoutWalletAddress}...`);
+                    alert(`Financial Ledger for ${dateRange} downloaded.`);
+                },
+                viewAssetPortfolio() {
+                    const btc = (Math.random() * 0.5).toFixed(4);
+                    const usd = (btc * 60000).toFixed(2);
+                    console.log(`[PORTFOLIO] BTC: ${btc}, Est. USD Value: $${usd}`);
+                },
+                setAutoRebalancingStrategy(targetAllocation) {
+                    console.log(`[PORTFOLIO] Auto-rebalancing set to:`, targetAllocation);
+                }
+            },
+
+            // --- 3. Events & Data Integration ---
+            Events: {
+                setupCustomEventTriggers(metric, threshold, action) {
+                    console.log(`[AUTOMATION] Trigger created: If ${metric} > ${threshold}, then execute ${action}.`);
+                    alert(`Automation Trigger Set!`);
+                },
+                subscribeToMempoolEvents(filterParams) {
+                    console.log(`[WEB3] Subscribing to mempool events with filters:`, filterParams);
+                }
+            },
+
+            // --- Initializer Function ---
+            init() {
+                this.loadNavigation();
+                // We run it once to get the initial values/setup done immediately
+                this.Core.viewMinerPerformanceStats(); 
+                setInterval(this.Core.viewMinerPerformanceStats, 5000); // Update stats every 5s
+                console.log("Web3 Mining Portal Initialized.");
+            },
+
+            // --- UI/Navigation Logic ---
+            loadNavigation() {
+                const menuContainer = document.getElementById('nav-menu');
+                if (typeof menuData === 'undefined') {
+                    console.error("Menu data not loaded.");
+                    return;
+                }
+
+                menuData.forEach(group => {
+                    const groupTitle = document.createElement('div');
+                    groupTitle.className = 'menu-group-title';
+                    groupTitle.textContent = group.title;
+                    menuContainer.appendChild(groupTitle);
+
+                    group.links.forEach(link => {
+                        const linkElement = document.createElement('a');
+                        linkElement.href = '#';
+                        linkElement.textContent = link.name;
+                        // Use a lambda to correctly pass the current context/data
+                        linkElement.onclick = (e) => this.handleNavigation(e, link.id, link.functions); 
+                        menuContainer.appendChild(linkElement);
+                    });
+                });
+                
+                // Load default section: 'Mining Control'
+                const defaultLink = menuContainer.querySelector('a');
+                if (defaultLink) {
+                    // Find the data for the first link to pass to handleNavigation
+                    const defaultSectionData = menuData[0].links[0]; 
+                    this.handleNavigation(null, defaultSectionData.id, defaultSectionData.functions);
+                    defaultLink.classList.add('active');
+                }
+            },
+
+            handleNavigation(e, sectionId, functions) {
+                if (e) e.preventDefault();
+                
+                // Close the mobile menu after selection
+                const sidebar = document.getElementById('sidebar');
+                if(sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+
+                // 1. Update active class in sidebar
+                document.querySelectorAll('#nav-menu a').forEach(a => a.classList.remove('active'));
+                if (e && e.target) e.target.classList.add('active');
+
+                // 2. Update section title
+                const sectionName = e ? e.target.textContent : document.querySelector(`#nav-menu a.active`).textContent;
+                document.getElementById('section-title').textContent = sectionNam. Bypp.
+ e;
+
+                // 3. Simple content rendering
+                const contentArea = document.getElementById('content
+   . 
