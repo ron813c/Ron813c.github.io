@@ -236,8 +236,10 @@
                 <button onclick="App.Financial.setMiningRewardWallet('bc1q5esdqxxpx0xtld0fn28cnr97lfph3m5jgjshgv')">Set My Wallet</button>
                 <button onclick="App.Financial.exportFinancialLedgerCSV('2024-Q1')">Export Ledger (CSV)</button>
             </div>
-        </section>
+            
+            </section>
     </div>
+
     <script>
         // Data is now a variable in the global scope instead of a file
         const menuData = [
@@ -279,24 +281,19 @@
             // --- Mock Data & Setup ---
             config: {
                 currentAlgorithm: 'SHA-256',
-                // CHANGED: Initial Pool and Worker Configuration
                 currentPool: 'stratum+tcp://stratum.braiins.com:3333',
                 currentWorker: 'ron47ron1.mining',
                 currentPassword: 'Ariel$$12345',
                 currentSessionID: null,
-                // 🛑 IMPORTANT: UPDATED PAYOUT ADDRESS TO YOUR BTC WALLET
                 payoutWalletAddress: 'bc1q5esdqxxpx0xtld0fn28cnr97lfph3m5jgjshgv' 
             },
 
             // --- 1. Core Mining & Infrastructure ---
             Core: {
-                // CHANGED: startMiningSession to accept workerName
                 startMiningSession(algorithm, poolAddress, workerName) {
                     App.config.currentSessionID = 'session-' + Math.random().toString(16).slice(2);
-                    // The IDs need to target the elements in the *main-content* area, not the hidden ones.
                     document.getElementById('stat-algo').textContent = algorithm;
                     document.getElementById('stat-pool').textContent = poolAddress;
-                    // ADDED: Update worker name display
                     const workerDisplay = document.getElementById('stat-worker');
                     if (workerDisplay) workerDisplay.textContent = workerName;
 
@@ -343,7 +340,7 @@
                     const displayElement = document.getElementById('payout-wallet-address');
                     if(displayElement) displayElement.textContent = App.config.payoutWalletAddress;
                     console.log(`[FINANCE] Payout Wallet set to: ${address}`);
-                    alert(`Payout Wallet Address Successfully Set to: ${address}`);
+                    // Removed alert on initial load
                 },
 
                 exportFinancialLedgerCSV(dateRange) {
@@ -420,19 +417,43 @@
                 
                 // Close the mobile menu after selection
                 const sidebar = document.getElementById('sidebar');
-                if(sidebar.classList.contains('active')) {
+                if(sidebar && sidebar.classList.contains('active')) {
                     sidebar.classList.remove('active');
                 }
 
                 // 1. Update active class in sidebar
                 document.querySelectorAll('#nav-menu a').forEach(a => a.classList.remove('active'));
-                if (e && e.target) e.target.classList.add('active');
+                // Determine the active link element
+                const activeLink = e ? e.target : document.querySelector(`#nav-menu a`);
+                if (activeLink) activeLink.classList.add('active');
 
                 // 2. Update section title
-                const sectionName = e ? e.target.textContent : document.querySelector(`#nav-menu a.active`).textContent;
-                document.getElementById('section-title').textContent = sectionNam. Bypp.
- e;
+                const sectionName = activeLink ? activeLink.textContent : 'Dashboard';
+                document.getElementById('section-title').textContent = sectionName;
 
                 // 3. Simple content rendering
-                const contentArea = document.getElementById('content
-   . 
+                
+                // Hide all sections
+                document.querySelectorAll('#content-area > div.card').forEach(card => {
+                    card.classList.add('hidden');
+                });
+                
+                // Show the corresponding card based on sectionId
+                if (sectionId === 'mining-control') {
+                    document.getElementById('mining-stats').classList.remove('hidden');
+                } else if (sectionId === 'payouts') {
+                    document.getElementById('financial-section').classList.remove('hidden');
+                    // Ensure the wallet address is displayed when the section loads
+                    this.Financial.setMiningRewardWallet(this.config.payoutWalletAddress); 
+                } else {
+                    // Placeholder for other sections
+                    console.log(`Content for ${sectionId} not fully implemented.`);
+                }
+            }
+        }; 
+
+        // Initialize the application when the DOM is ready
+        App.init(); 
+    </script>
+</body>
+</html>
