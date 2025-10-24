@@ -208,6 +208,76 @@
         }
         /* END NEW STYLES */
 
+        /* Modal / Pop-up Window Styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 200; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; /* 5% from the top and centered */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            width: 90%; /* Responsive width */
+            max-width: 500px; /* Max width for desktop */
+        }
+
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+        .modal-metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-metric-row:last-child {
+            border-bottom: none;
+        }
+        
+        .modal-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .modal-value {
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        .status-ok {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+        
+        .status-warn {
+            color: #f39c12;
+            font-weight: bold;
+        }
+        /* END Modal Styles */
+
         /* Desktop Adjustments (Media Query) */
         @media (min-width: 768px) {
             #app-container {
@@ -392,7 +462,7 @@
                     </div>
                     
                     <p style="text-align: right; font-size: 0.9em; color: #7f8c8d; margin-top: 10px;">Last update: 5 seconds ago</p>
-                    <button class="action-button primary-btn" onclick="viewDetailedMinerLog()">View Detailed Log & Control</button>
+                    <button class="action-button primary-btn" onclick="showMiningMetricsModal()">View Real-Time Metrics Pop-up</button> <button class="action-button secondary-btn" onclick="viewDetailedMinerLog()">View Detailed Log & Control</button>
                 </div>
                 <div class="feature-card">
                     <h3>Global Mining Stats</h3>
@@ -401,7 +471,7 @@
                 </div>
 
                 <div class="feature-card">
-                    <h3>mining Tools Manager</h3>
+                    <h3>Mining Tools Manager</h3>
                     <p>Hardware management and control for mining devices (e.g., Bitaxe, BMM 101).</p>
                     <button class="action-button primary-btn" onclick="launchManager()">Launch Manager</button>
                 </div>
@@ -467,127 +537,4 @@
                 <div class="feature-card">
                     <span class="roadmap-tag">NEXT RELEASE</span>
                     <h3>Candlestick Charts</h3>
-                    <p>Spot market trends instantly with real-time candlestick charts.</p>
-                </div>
-                <div class="feature-card">
-                    <span class="roadmap-tag">PLANNED</span>
-                    <h3>Automated Trading Signals</h3>
-                    <p>Integrate with external APIs for automated signal generation.</p>
-                </div>
-            </div>
-        </div>
-
-        <hr style="margin-top: 50px;">
-        <footer style="text-align: center; color: #777;">
-            <p>Mobile Trading & Monitoring. Evolving Application. | Android Native Compatible</p>
-        </footer>
-
-    </div>
-</div>
-
-<script>
-    // This JavaScript handles the basic navigation (showing/hiding sections)
-    // and is a continuation of the script block from the second file.
-    function showSection(sectionId) {
-        // Hide all content sections
-        document.querySelectorAll('.content-section').forEach(section => {
-            section.style.display = 'none';
-        });
-
-        // Deactivate all navigation buttons
-        document.querySelectorAll('.nav-button').forEach(button => {
-            button.classList.remove('active');
-        });
-
-        // Show the selected content section
-        const targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-            targetSection.style.display = 'block';
-        }
-
-        // Activate the corresponding navigation button
-        document.querySelector(`.nav-button[onclick*="${sectionId}"]`).classList.add('active');
-        
-        // Hide the menu after selection on mobile
-        if (window.innerWidth < 768) {
-            document.getElementById('sidebar').classList.remove('open');
-        }
-
-        console.log(`Mapsd to: ${sectionId}`);
-    }
-
-    // Mobile Menu Toggle Function
-    function toggleMenu() {
-        document.getElementById('sidebar').classList.toggle('open');
-    }
-
-    // Renamed/modified dummy functions for button clicks
-    function viewTicker(asset) {
-        alert(`Launching real-time Ticker view for ${asset}.`);
-    }
-
-    function viewTickerList() {
-        alert("Redirecting to Ticker List management screen.");
-    }
-
-    function manageTickerLists() {
-        alert("Opening 'Create New List' interface.");
-    }
-
-    function openSettings(item) {
-        alert(`Opening customization settings for ${item}.`);
-    }
-
-    function addAlert() {
-        alert("Opening New Price Alert creation form.");
-    }
-
-    function viewMiningStats() {
-        alert("Launching real-time Mining Pool Dashboard.");
-    }
-
-    function connectPool() {
-        alert("Opening interface to securely connect your mining Pool account (read-only).");
-    }
-
-    function viewGlobalStats() {
-        alert("Displaying Global Hashrate and Hashprice data.");
-    }
-
-    function launchManager() {
-        alert("Launching Mining Tools Manager."); // The original cut off here, completed with a likely action
-    }
-    
-    // Additional dummy functions for remaining buttons
-    function addNewAlertScreen() {
-        alert("Navigating to new alert screen.");
-    }
-    function testAlertSystem() {
-        alert("Testing alert sound and vibration.");
-    }
-    function viewDetailedMinerLog() {
-        alert("Viewing detailed miner log and controls.");
-    }
-    function viewMempool() {
-        alert("Viewing Mempool data.");
-    }
-    function viewBlockData() {
-        alert("Viewing Bitcoin network block data.");
-    }
-    function viewLightning() {
-        alert("Viewing Lightning Network stats.");
-    }
-    function editNotifications() {
-        alert("Editing notification preferences.");
-    }
-    function checkUpdates() {
-        alert("Checking for application updates.");
-    }
-
-    // Initialize the view to the dashboard on load
-    window.onload = function() {
-        showSection('dashboard');
-    }
-</script>
-</body>
-</html>
+          
