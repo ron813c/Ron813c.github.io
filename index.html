@@ -218,12 +218,13 @@
                 <h2>Real-Time Mining Performance</h2>
                 <div class="stat-grid">
                     <div><strong>Algorithm:</strong> <span id="stat-algo">SHA-256</span></div>
-                    <div><strong>Pool:</strong> <span id="stat-pool">stratum+tcp://stratum.braiins.com:3333</span></div>
-                    <div><strong>Worker:</strong> <span id="stat-worker">ron47ron1.mining</span></div>
+                    <div><strong>Primary Pool:</strong> <span id="stat-pool">stratum+tcp://stratum.braiins.com:3333</span></div>
+                    <div><strong>Backup Pool:</strong> <span id="stat-backup-pool">stratum+tcp://stratum.braiins.com:443</span></div>
+                    <div><strong>Worker ID:</strong> <span id="stat-worker">ron47ron1.workerName</span></div>
                     <div><strong>Efficiency:</strong> <span id="stat-eff">50 J/TH</span></div>
                     <div><strong>Temperature:</strong> <span id="stat-temp">68°C</span></div>
                 </div>
-                <button onclick="App.Core.startMiningSession('SHA-256', 'stratum+tcp://stratum.braiins.com:3333', 'ron47ron1.mining')">Start Mining</button>
+                <button onclick="App.Core.startMiningSession('SHA-256', 'stratum+tcp://stratum.braiins.com:3333', 'ron47ron1.workerName')">Start Mining</button>
                 <button onclick="App.Core.stopMiningSession('session-123')">Stop Mining</button>
             </div>
 
@@ -281,9 +282,11 @@
             // --- Mock Data & Setup ---
             config: {
                 currentAlgorithm: 'SHA-256',
+                // UPDATED CONFIG ATTRIBUTES
                 currentPool: 'stratum+tcp://stratum.braiins.com:3333',
-                currentWorker: 'ron47ron1.mining',
-                currentPassword: 'Ariel$$12345',
+                backupPool: 'stratum+tcp://stratum.braiins.com:443', // NEW BACKUP POOL
+                currentWorker: 'ron47ron1.workerName',
+                currentPassword: 'anything (or empty)', // UPDATED PASSWORD NOTE
                 currentSessionID: null,
                 payoutWalletAddress: 'bc1q5esdqxxpx0xtld0fn28cnr97lfph3m5jgjshgv' 
             },
@@ -319,6 +322,11 @@
                     // This attempts to update the card content, only if it's visible/rendered
                     const tempStat = document.getElementById('stat-temp');
                     if (tempStat) tempStat.textContent = `${temp}°C`;
+                    
+                    // Ensure the backup pool is displayed in the stats grid on load
+                    const backupPoolStat = document.getElementById('stat-backup-pool');
+                    if(backupPoolStat) backupPoolStat.textContent = App.config.backupPool;
+
 
                     console.log(`[STATS] Performance updated. Hashrate: ${hashrate} TH/s`);
                 },
