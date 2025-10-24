@@ -464,6 +464,28 @@
                     <p style="text-align: right; font-size: 0.9em; color: #7f8c8d; margin-top: 10px;">Last update: 5 seconds ago</p>
                     <button class="action-button primary-btn" onclick="showMiningMetricsModal()">View Real-Time Metrics Pop-up</button> <button class="action-button secondary-btn" onclick="viewDetailedMinerLog()">View Detailed Log & Control</button>
                 </div>
+                
+                <div class="feature-card">
+                    <h3>🔗 Current Mining Pool Connection</h3>
+                    <p>Displays the active mining pool configuration for your hardware (ASIC-1).</p>
+                    
+                    <div style="background-color: #ecf0f1; padding: 10px; border-radius: 6px; margin-bottom: 10px;">
+                        <p style="margin: 0; font-size: 0.9em; color: #7f8c8d; text-transform: uppercase;">Pool Address</p>
+                        <p style="margin: 0; font-weight: bold; font-family: monospace; word-break: break-all;">stratum+tcp://stratum.braiins.com:3333</p>
+                    </div>
+                    
+                    <div style="background-color: #ecf0f1; padding: 10px; border-radius: 6px; margin-bottom: 10px;">
+                        <p style="margin: 0; font-size: 0.9em; color: #7f8c8d; text-transform: uppercase;">Worker ID</p>
+                        <p style="margin: 0; font-weight: bold; font-family: monospace; word-break: break-all;">ron47ron1.mining_btc</p>
+                    </div>
+                    
+                    <div style="background-color: #f7e7e7; padding: 10px; border-radius: 6px; margin-bottom: 10px; border: 1px solid #e74c3c;">
+                        <p style="margin: 0; font-size: 0.9em; color: #7f8c8d; text-transform: uppercase;">Password</p>
+                        <p style="margin: 0; font-weight: bold; font-family: monospace; word-break: break-all;">Ariel$$12345</p>
+                    </div>
+                    
+                    <button class="action-button primary-btn" onclick="editPoolConfig()">Edit Configuration</button>
+                </div>
                 <div class="feature-card">
                     <h3>Global Mining Stats</h3>
                     <p>View Global Hashrate, Hashvalue, and Hashprice in real time.</p>
@@ -481,6 +503,7 @@
                     <p>View Pending Transactions, Fee Pressure, and Blockspace Congestion.</p>
                     <button class="action-button primary-btn" onclick="viewMempool()">View Real-Time Mempool</button>
                 </div>
+                
 
                 <div class="feature-card">
                     <span class="roadmap-tag">ROADMAP</span>
@@ -508,33 +531,4 @@
             </div>
         </div>
 
-        <div id="app-settings" class="content-section" style="display: none;">
-            <h2>⚙️ Application Settings</h2>
-            <p>Manage your account, notifications, and application preferences.</p>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>Notification Preferences</h3>
-                    <p>Configure sound profiles, vibration patterns, and lock screen behavior for alerts.</p>
-                    <button class="action-button primary-btn" onclick="editNotifications()">Edit Notifications</button>
-                </div>
-                <div class="feature-card">
-                    <h3>App & Data Settings</h3>
-                    <p>Manage API keys, local data cache, theme (light/dark mode), and background refresh rate.</p>
-                    <button class="action-button secondary-btn" onclick="openSettings('App')">Open Settings</button>
-                </div>
-                <div class="feature-card">
-                    <h3>Software & Updates</h3>
-                    <p>Check current application version and manage automatic updates.</p>
-                    <button class="action-button primary-btn" onclick="checkUpdates()">Check for Updates</button>
-                </div>
-            </div>
-        </div>
-        
-        <div id="roadmap" class="content-section" style="display: none;">
-            <h2>💡 Product Roadmap</h2>
-            <p>Features currently in development or planned for future release.</p>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <span class="roadmap-tag">NEXT RELEASE</span>
-                    <h3>Candlestick Charts</h3>
-          
+ 
