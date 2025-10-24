@@ -40,6 +40,16 @@
             margin: 0;
             font-size: 1.2em;
         }
+        
+        /* Menu Toggle Button Style */
+        #menu-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 0 5px;
+        }
 
         /* Main Content Area */
         #main-content {
@@ -352,17 +362,17 @@
 
     <div id="sidebar">
         <h1 class="desktop-header">Android Monitor 📈</h1> 
-        <button class="nav-button active" onclick="showSection('dashboard')">🏠 Dashboard</button>
-        <button class="nav-button" onclick="showSection('price-alerts')">🔔 Price Alerts</button>
-        <button class="nav-button" onclick="showSection('mining-tools')">⛏️ Mining Tools</button>
-        <button class="nav-button" onclick="showSection('network-data')">⛓️ Network Data</button>
-        <button class="nav-button" onclick="showSection('app-settings')">⚙️ App Settings</button>
-        <button class="nav-button" onclick="showSection('roadmap')">💡 Roadmap</button>
+        <button class="nav-button active" onclick="showSection('dashboard', this)">🏠 Dashboard</button>
+        <button class="nav-button" onclick="showSection('price-alerts', this)">🔔 Price Alerts</button>
+        <button class="nav-button" onclick="showSection('mining-tools', this)">⛏️ Mining Tools</button>
+        <button class="nav-button" onclick="showSection('network-data', this)">⛓️ Network Data</button>
+        <button class="nav-button" onclick="showSection('app-settings', this)">⚙️ App Settings</button>
+        <button class="nav-button" onclick="showSection('roadmap', this)">💡 Roadmap</button>
     </div>
 
     <div id="main-content">
 
-        <div id="bitcoin-wallet-info" style="display: none;">
+        <div id="bitcoin-wallet-info" class="content-section" style="display: none;">
             <h2>Your Bitcoin Deposit Wallet Address</h2>
             <div class="wallet-address">
                 bc1q5esdqxxpx0xtld0fn28cnr97lfph3m5jgjshgv
@@ -392,7 +402,7 @@
                 <div class="feature-card">
                     <h3>Market Signals</h3>
                     <p>Set and manage all your asset alerts (Stocks, Crypto, Commodities).</p>
-                    <button class="action-button primary-btn" onclick="showSection('price-alerts')">Manage 12 Alerts</button>
+                    <button class="action-button primary-btn" onclick="showSection('price-alerts', document.querySelector('#sidebar .nav-button:nth-child(3)'))">Manage 12 Alerts</button>
                     <button class="action-button secondary-btn" onclick="addAlert()">+ New Price Alert</button>
                 </div>
 
@@ -522,13 +532,4 @@
                     <h3>Bitcoin Network Data</h3>
                     <p>Track Block Height, Difficulty, and Epoch Progress.</p>
                     <button class="action-button primary-btn" onclick="viewBlockData()">View Block Data</button>
-                </div>
-                <div class="feature-card">
-                    <h3>Lightning Stats</h3>
-                    <p>Monitor the health and growth of the Lightning Network.</p>
-                    <button class="action-button primary-btn" onclick="viewLightning()">View Lightning Network</button>
-                </div>
-            </div>
-        </div>
-
- 
+  
