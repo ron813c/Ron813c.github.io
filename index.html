@@ -416,55 +416,8 @@
             <h2>Dashboard Overview</h2>
             <p>Welcome to your real-time price monitoring hub. Quickly launch key trackers and configure your view.</p>
 
-            <div class="feature-grid">
-
-                <div class="feature-card">
-                    <h3>BTC Price Ticker</h3>
-                    <p>Continuously updating Bitcoin price with a trend graph.</p>
-                    <button class="action-button primary-btn" onclick="alert('Launching BTC Ticker...')">Launch Ticker</button>
-                    <button class="action-button secondary-btn" onclick="alert('Opening BTC Settings...')">Customize View</button>
-                </div>
-
-                <div class="feature-card">
-                    <h3>Market Signals</h3>
-                    <p>Set and manage all your asset alerts (Stocks, Crypto, Commodities).</p>
-                    <button class="action-button primary-btn" onclick="showSection('price-alerts', document.querySelector('#sidebar .nav-button:nth-child(3)'))">Manage 12 Alerts</button>
-                    <button class="action-button secondary-btn" onclick="alert('Adding New Alert...')">+ New Price Alert</button>
-                </div>
-
-                <div class="feature-card">
-                    <h3>Mining Pool Stats</h3>
-                    <p>Monitor your operation: hashrate, rewards, and uptime in real-time.</p>
-                    <button class="action-button primary-btn" onclick="showSection('mining-tools', document.querySelector('#sidebar .nav-button:nth-child(4)'))">View Dashboard</button>
-                    <button class="action-button tertiary-btn" onclick="showPoolConfigModal()">View Pool Config</button>
-                </div>
-            </div>
-        </div>
-        
-        <div id="price-alerts" class="content-section" style="display: none;">
-            <h2>🔔 Price Alerts Manager</h2>
-            <p>Configure custom price alerts with sound and vibratory feedback.</p>
-            <div class="feature-grid">
-                <div class="feature-card full-width">
-                    <h3>Current Alerts</h3>
-                    <ul>
-                        <li><span style="font-weight: bold; color: #2ecc71;">Active</span>: **BTC** above $70,000 (Vibrate: Medium)</li>
-                        <li><span style="font-weight: bold; color: #f39c12;">Paused</span>: **ETH** below $3,500 (Vibrate: Strong)</li>
-                        <li><span style="font-weight: bold; color: #7f8c8d;">Inactive</span>: **TSLA** above $200 (Vibrate: Short)</li>
-                    </ul>
-                </div>
-                <div class="feature-card">
-                    <h3>Quick Actions</h3>
-                    <p>Create a new alert to be notified when an asset hits a target price.</p>
-                    <button class="action-button primary-btn" onclick="alert('Opening New Alert Screen...')">+ Set New Alert</button>
-                    <button class="action-button secondary-btn" onclick="alert('Testing Alert System...')">Test Sound & Vibrate</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="mining-tools" class="content-section" style="display: none;">
-            <h2>⛏️ Mining Tools Hub</h2>
-            <p>Access all mining-related features, including stats and hardware management.</p>
+            <h2 style="margin-top: 25px;">⛏️ Mining Tools Hub (All Details Below)</h2>
+            <p>Access all mining-related features, including stats and hardware management, immediately on load.</p>
 
             <div class="feature-grid">
                 
@@ -495,7 +448,8 @@
                     </div>
                     
                     <p style="text-align: right; font-size: 0.9em; color: #7f8c8d; margin-top: 10px;">Last update: <span id="last-update">5 seconds ago</span></p>
-                    <button class="action-button primary-btn" onclick="showMiningMetricsModal()">View Full Metrics Pop-up</button> <button class="action-button secondary-btn" onclick="alert('Viewing Detailed Log...')">View Detailed Log & Control</button>
+                    <button class="action-button primary-btn" onclick="showMiningMetricsModal()">View Full Metrics Pop-up</button>
+                    <button class="action-button secondary-btn" onclick="alert('Viewing Detailed Log...')">View Detailed Log & Control</button>
                 </div>
                 
                 <div class="feature-card">
@@ -548,45 +502,98 @@
                     <span class="roadmap-tag">ROADMAP</span>
                     <h3>Solo Mining Tracker</h3>
                     <p>Track your lottery mining performance.</p>
-                    <button class="action-button primary-btn" disabled>Coming Soon</button>
+                    <button class="action-button primary-btn" onclick="alert('Opening Solo Tracker...')">Launch Tracker</button>
+                    <button class="action-button secondary-btn" onclick="alert('Configuring Solo...')">Set Wallet Address</button>
+                </div>
+            </div>
+            
+            <div class="feature-grid" style="margin-top: 30px; border-top: 2px solid #ccc; padding-top: 20px;">
+                <div class="feature-card">
+                    <h3>BTC Price Ticker</h3>
+                    <p>Continuously updating Bitcoin price with a trend graph.</p>
+                    <button class="action-button primary-btn" onclick="alert('Launching BTC Ticker...')">Launch Ticker</button>
+                    <button class="action-button secondary-btn" onclick="alert('Opening BTC Settings...')">Customize View</button>
+                </div>
+
+                <div class="feature-card">
+                    <h3>Market Signals</h3>
+                    <p>Set and manage all your asset alerts (Stocks, Crypto, Commodities).</p>
+                    <button class="action-button primary-btn" onclick="showSection('price-alerts', document.querySelector('#sidebar .nav-button:nth-child(3)'))">Manage 12 Alerts</button>
+                    <button class="action-button secondary-btn" onclick="alert('Adding New Alert...')">+ New Price Alert</button>
+                </div>
+            </div>
+            </div>
+        
+        <div id="price-alerts" class="content-section" style="display: none;">
+            <h2>🔔 Price Alerts Manager</h2>
+            <p>Configure custom price alerts with sound and vibratory feedback.</p>
+            <div class="feature-grid">
+                <div class="feature-card full-width">
+                    <h3>Current Alerts</h3>
+                    <ul>
+                        <li><span style="font-weight: bold; color: #2ecc71;">Active</span>: **BTC** above $70,000 (Vibrate: Medium)</li>
+                        <li><span style="font-weight: bold; color: #f39c12;">Paused</span>: **ETH** below $3,500 (Vibrate: Strong)</li>
+                        <li><span style="font-weight: bold; color: #7f8c8d;">Inactive</span>: **TSLA** above $200 (Vibrate: Short)</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h3>Quick Actions</h3>
+                    <p>Create a new alert to be notified when an asset hits a target price.</p>
+                    <button class="action-button primary-btn" onclick="alert('Opening New Alert Screen...')">+ Set New Alert</button>
+                    <button class="action-button secondary-btn" onclick="alert('Testing Alert System...')">Test Sound & Vibrate</button>
                 </div>
             </div>
         </div>
 
+        <div id="mining-tools" class="content-section" style="display: none;">
+             <h2>Mining Tools Hub (Hidden/Redundant)</h2>
+            <p>The content from this section has been moved to the Dashboard for immediate visibility.</p>
+        </div>
+        
         <div id="network-data" class="content-section" style="display: none;">
-            <h2>⛓️ Blockchain & Network Data</h2>
-            <p>Track core network metrics for Bitcoin and other supported blockchains.</p>
-            <div class="feature-grid">
+            <h2>⛓️ Network Data</h2>
+            <p>Real-time data for various blockchain networks.</p>
+             <div class="feature-grid">
                 <div class="feature-card">
-                    <h3>Bitcoin Network Data</h3>
-                    <p>Track Block Height, Difficulty, and Epoch Progress.</p>
-                    <button class="action-button primary-btn" onclick="alert('Viewing Block Data...')">View Block Data</button>
+                    <h3>Bitcoin Network</h3>
+                    <p>Current block height, next difficulty adjustment, and transaction volume.</p>
+                    <button class="action-button primary-btn" onclick="alert('Viewing BTC Network Data...')">View BTC Data</button>
+                </div>
+                <div class="feature-card">
+                    <h3>Ethereum Network</h3>
+                    <p>Gas prices, burned ETH, and staking metrics.</p>
+                    <button class="action-button primary-btn" onclick="alert('Viewing ETH Network Data...')">View ETH Data</button>
                 </div>
             </div>
         </div>
         
         <div id="app-settings" class="content-section" style="display: none;">
-            <h2>⚙️ App Settings</h2>
-            <p>Configure app themes, notifications, and data synchronization.</p>
-            <div class="feature-grid">
+            <h2>⚙️ Application Settings</h2>
+            <p>Manage app configuration, notifications, and theme settings.</p>
+             <div class="feature-grid">
                 <div class="feature-card">
-                    <h3>Theme Settings</h3>
-                    <p>Switch between Light, Dark, or System themes.</p>
-                    <button class="action-button primary-btn" onclick="alert('Switching to Dark Mode...')">Toggle Dark Mode</button>
+                    <h3>Notifications</h3>
+                    <p>Toggle sound and vibration for alerts.</p>
+                    <button class="action-button primary-btn" onclick="alert('Opening Notification Settings...')">Configure Notifications</button>
+                </div>
+                <div class="feature-card">
+                    <h3>Theme</h3>
+                    <p>Switch between Light Mode and Dark Mode.</p>
+                    <button class="action-button primary-btn" onclick="alert('Switching Theme...')">Toggle Dark Mode</button>
                 </div>
             </div>
         </div>
         
         <div id="roadmap" class="content-section" style="display: none;">
             <h2>💡 Product Roadmap</h2>
-            <p>A look at what's coming next for the Android Monitor application.</p>
-            <div class="feature-grid">
+            <p>See what features are coming next!</p>
+             <div class="feature-grid">
                 <div class="feature-card full-width">
-                    <h3>Phase 1: Q4 2025</h3>
+                    <h3>Q4 2025</h3>
                     <ul>
-                        <li>**Advanced Charting:** Candlestick charts with indicators.</li>
-                        <li>**Web3 Wallet Integration:** Connect MetaMask and other wallets.</li>
-                        <li>**ASIC Control:** Remote reboot and fan speed adjustment.</li>
+                        <li>**Done:** Mobile-first responsive design (Current View)</li>
+                        <li>**In Progress:** Integrated hardware fan speed control.</li>
+                        <li>**Planned:** Fiat currency conversion for profit metric.</li>
                     </ul>
                 </div>
             </div>
@@ -595,85 +602,77 @@
     </div>
 </div>
 
+<div id="miningMetricsModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeMiningMetricsModal()">&times;</span>
+        <h2>Full Miner Metrics (ASIC-1)</h2>
+        <div class="modal-metric-row">
+            <span class="modal-label">Status</span>
+            <span class="modal-value status-ok">RUNNING</span>
+        </div>
+        <div class="modal-metric-row">
+            <span class="modal-label">Current Hash Rate</span>
+            <span class="modal-value">87.5 TH/s</span>
+        </div>
+        <div class="modal-metric-row">
+            <span class="modal-label">Accepted Shares (24h)</span>
+            <span class="modal-value">1,542,109</span>
+        </div>
+        <div class="modal-metric-row">
+            <span class="modal-label">Rejected Shares (24h)</span>
+            <span class="modal-value status-warn">124 (0.008%)</span>
+        </div>
+        <div class="modal-metric-row">
+            <span class="modal-label">Fan Speed (Avg)</span>
+            <span class="modal-value">5,200 RPM</span>
+        </div>
+        <div class="modal-metric-row">
+            <span class="modal-label">Board Voltage</span>
+            <span class="modal-value">12.1 V</span>
+        </div>
+        <div class="modal-metric-row">
+            <span class="modal-label">Power Consumption</span>
+            <span class="modal-value">3,100 W</span>
+        </div>
+        <button class="action-button primary-btn" style="margin-top: 15px;" onclick="alert('Initiating Hard Reboot...')">Hard Reboot Miner</button>
+    </div>
+</div>
+
 <div id="poolConfigModal" class="modal">
     <div class="modal-content">
         <span class="close-btn" onclick="closePoolConfigModal()">&times;</span>
-        <h2>Current Pool Configuration</h2>
+        <h2>Pool Configuration Editor</h2>
         
-        <div class="modal-metric-row">
-            <span class="modal-label">Protocol</span>
-            <span class="modal-value">Stratum V1 (TCP)</span>
-        </div>
-        
-        <div class="modal-metric-row">
-            <span class="modal-label">Pool Address</span>
-            <span class="modal-value" id="modal-pool-address">stratum+tcp://stratum.braiins.com:3333</span>
-        </div>
-
-        <div class="modal-metric-row">
-            <span class="modal-label">Worker ID</span>
-            <span class="modal-value">ron47ron1.mining_btc</span>
-        </div>
-
-        <div class="modal-metric-row warning-detail">
-            <span class="modal-label">Password</span>
-            <span class="modal-value status-warn">Ariel$$12345 (Sensitive!)</span>
+        <div class="pool-config-detail">
+            <p class="label">Protocol</p>
+            <p class="value">Stratum V2 (TCP)</p>
         </div>
         
-        <h3 style="margin-top: 20px;">Suggested Upgrade</h3>
-        <p>Switch to Stratum V2 for better security and features.</p>
-        <button class="action-button primary-btn" onclick="confirmStratumV2Switch(); closePoolConfigModal();">Switch to Stratum V2 Now</button>
+        <div class="pool-config-detail">
+            <p class="label">Pool Address</p>
+            <input type="text" id="pool-address-input" value="stratum+tcp://stratum.braiins.com:3333" style="width: 95%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: monospace;">
+        </div>
+        
+        <div class="pool-config-detail">
+            <p class="label">Worker ID</p>
+            <input type="text" value="ron47ron1.mining_btc" style="width: 95%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-family: monospace;">
+        </div>
+        
+        <button class="action-button primary-btn" style="margin-top: 15px;" onclick="savePoolConfig()">Save & Apply Changes</button>
+        <button class="action-button secondary-btn" onclick="closePoolConfigModal()">Cancel</button>
     </div>
 </div>
-
-<div id="metricsModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closeMetricsModal()">&times;</span>
-        <h2>Real-Time ASIC Metrics</h2>
-        
-        <div class="modal-metric-row">
-            <span class="modal-label">Device Status</span>
-            <span class="modal-value status-ok">Active</span>
-        </div>
-        
-        <div class="modal-metric-row">
-            <span class="modal-label">Current Hashrate</span>
-            <span class="modal-value">87.5 TH/s</span>
-        </div>
-
-        <div class="modal-metric-row">
-            <span class="modal-label">Accepted Shares (24h)</span>
-            <span class="modal-value">1,502</span>
-        </div>
-
-        <div class="modal-metric-row">
-            <span class="modal-label">Rejected Shares (24h)</span>
-            <span class="modal-value" style="color: #e74c3c;">15 (0.9%)</span>
-        </div>
-
-        <div class="modal-metric-row">
-            <span class="modal-label">Chip Temperature</span>
-            <span class="modal-value">72°C</span>
-        </div>
-        
-        <p style="font-size: 0.8em; color: #7f8c8d; text-align: center; margin-top: 15px;">Data is simulated. In a live application, this would stream via an API.</p>
-    </div>
-</div>
-
 
 <script>
-    // --- Application State and Constants ---
-    const NEW_BRAIINS_POOL = 'stratum2+tcp://v2.stratum.braiins.com/u95GEReVMjK6k5YqiSFNqqTnKU4ypU2Wm8awa6tmbmDmk1bWt';
-    const OLD_BRAIINS_POOL = 'stratum+tcp://stratum.braiins.com:3333';
-    
-    // --- Sidebar and Section Management ---
+    // Toggles the mobile sidebar menu
     function toggleMenu() {
         const sidebar = document.getElementById('sidebar');
         sidebar.classList.toggle('open');
     }
 
+    // Displays the selected content section and updates active button state
     function showSection(sectionId, clickedButton) {
-        // Hide all sections
+        // Hide all content sections
         document.querySelectorAll('.content-section').forEach(section => {
             section.style.display = 'none';
         });
@@ -681,125 +680,75 @@
         // Show the requested section
         document.getElementById(sectionId).style.display = 'block';
 
-        // Update active state in sidebar
+        // Remove 'active' class from all nav buttons
         document.querySelectorAll('.nav-button').forEach(button => {
             button.classList.remove('active');
         });
 
+        // Add 'active' class to the clicked button
         if (clickedButton) {
             clickedButton.classList.add('active');
         }
-
-        // 🌟 FIX APPLIED HERE: Collapse menu on mobile after selection 
-        // Checks if the window is smaller than the desktop breakpoint (768px)
-        if (window.innerWidth < 768) {
-            // Check if the sidebar is open before attempting to close it
-            const sidebar = document.getElementById('sidebar');
-            if (sidebar.classList.contains('open')) {
-                toggleMenu(); // Closes the menu
-            }
+        
+        // On mobile, close the sidebar after selecting a section
+        if (window.innerWidth <= 767) {
+            document.getElementById('sidebar').classList.remove('open');
         }
     }
-    
-    // Initialize: Show the dashboard on load
-    document.addEventListener('DOMContentLoaded', () => {
-        // Pass the active button to showSection for initial styling
-        showSection('dashboard', document.querySelector('#sidebar .nav-button.active'));
-    });
 
-    // --- Modal Functions ---
+    // Modal functions for Mining Metrics
+    function showMiningMetricsModal() {
+        document.getElementById('miningMetricsModal').style.display = 'block';
+    }
+
+    function closeMiningMetricsModal() {
+        document.getElementById('miningMetricsModal').style.display = 'none';
+    }
     
+    // Modal functions for Pool Config
     function showPoolConfigModal() {
         document.getElementById('poolConfigModal').style.display = 'block';
     }
-    
+
     function closePoolConfigModal() {
         document.getElementById('poolConfigModal').style.display = 'none';
     }
     
-    function showMiningMetricsModal() {
-        document.getElementById('metricsModal').style.display = 'block';
+    // Example function to save the pool config (just an alert for demo)
+    function savePoolConfig() {
+        const newAddress = document.getElementById('pool-address-input').value;
+        document.getElementById('pool-address-display').textContent = newAddress;
+        alert('Configuration saved! Miner reboot may be required.');
+        closePoolConfigModal();
     }
     
-    function closeMetricsModal() {
-        document.getElementById('metricsModal').style.display = 'none';
-    }
-    
-    // Close modals if the user clicks anywhere outside of them
-    window.onclick = function(event) {
-        const poolModal = document.getElementById('poolConfigModal');
-        const metricsModal = document.getElementById('metricsModal');
-        
-        if (event.target === poolModal) {
-            poolModal.style.display = "none";
-        }
-        if (event.target === metricsModal) {
-            metricsModal.style.display = "none";
-        }
-    }
-
-    // --- Core Pool Management Function ---
-    
-    /**
-     * Confirms the switch and updates the displayed pool address 
-     * in the Mining Tools Hub and the modal.
-     */
+    // Example function for Stratum V2 switch (just an alert for demo)
     function confirmStratumV2Switch() {
-        const confirmation = confirm("Are you sure you want to switch the MINER CONFIGURATION to the Stratum V2 address?\n\nNew Address: " + NEW_BRAIINS_POOL);
-        
-        if (confirmation) {
-            // Update the display elements
-            document.getElementById('pool-address-display').textContent = NEW_BRAIINS_POOL;
-            document.getElementById('modal-pool-address').textContent = NEW_BRAIINS_POOL;
-            
-            // Provide feedback
-            alert("✅ SUCCESS: Your mining configuration has been updated to Stratum V2! A command to update the physical ASIC would be sent now.");
-            
-            // Optional: Re-label the button for consistency
-            document.querySelector('#mining-tools .feature-card:nth-child(2) .action-button.primary-btn').textContent = "REVERT TO STRATUM V1";
-            document.querySelector('#mining-tools .feature-card:nth-child(2) .action-button.primary-btn').onclick = revertToStratumV1;
-            
-        } else {
-            alert("Switch cancelled.");
+        alert('Confirmed! Switching pool to Stratum V2 address. Miner will restart.');
+        // In a real app, this would send an API command to the miner
+    }
+    
+    // Example function to update pool address (just an alert for demo)
+    function updatePoolAddress() {
+        document.getElementById('pool-address-display').textContent = 'stratum2+tcp://v2.stratum.braiins.com/u95GEReVMjK6k5YqiSFNqqTnKU4ypU2Wm8awa6tmbmDmk1bWt';
+        alert('Pool address updated to Stratum V2 (Braiins)! Please restart miner.');
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('miningMetricsModal')) {
+            closeMiningMetricsModal();
+        }
+        if (event.target == document.getElementById('poolConfigModal')) {
+            closePoolConfigModal();
         }
     }
-    
-    /**
-     * Placeholder function to revert to the old pool for demonstration.
-     */
-     function revertToStratumV1() {
-        // In a real app, this would send a command to the miner
-        document.getElementById('pool-address-display').textContent = OLD_BRAIINS_POOL;
-        document.getElementById('modal-pool-address').textContent = OLD_BRAIINS_POOL;
-        
-        alert("🔄 REVERTED: The mining configuration has been reverted to the original Stratum V1 address.");
-        
-        // Restore the original button state
-        document.querySelector('#mining-tools .feature-card:nth-child(2) .action-button.primary-btn').textContent = "SWITCH TO BRAIINS STRATUM V2";
-        document.querySelector('#mining-tools .feature-card:nth-child(2) .action-button.primary-btn').onclick = updatePoolAddress;
-    }
-    
-    // A simplified update function that leads to the confirmation
-    function updatePoolAddress() {
-        confirmStratumV2Switch();
-    }
-    
-    // --- Placeholder Functions for Button Clicks (Kept for completeness) ---
-    function viewTicker(asset) { /* Functionality here */ }
-    function viewTickerList() { /* Functionality here */ }
-    function manageTickerLists() { /* Functionality here */ }
-    function addAlert() { /* Functionality here */ }
-    function viewMiningStats() { /* Functionality here */ }
-    function connectPool() { /* Functionality here */ }
-    function addNewAlertScreen() { /* Functionality here */ }
-    function testAlertSystem() { /* Functionality here */ }
-    function viewDetailedMinerLog() { /* Functionality here */ }
-    function editPoolConfig() { showPoolConfigModal(); }
-    function viewGlobalStats() { /* Functionality here */ }
-    function launchManager() { /* Functionality here */ }
-    function viewMempool() { /* Functionality here */ }
-    function viewBlockData() { /* Functionality here */ }
 
+    // Initial load: Ensure only the Dashboard is visible (which now contains mining data)
+    document.addEventListener('DOMContentLoaded', () => {
+        showSection('dashboard', document.querySelector('#sidebar .nav-button.active'));
+    });
 </script>
+
 </body>
 </html>
