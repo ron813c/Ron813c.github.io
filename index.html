@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Android Monitor Dashboard</title>
+    <title>Advanced Android Monitor Dashboard 📈</title>
     <style>
         /* Base Styling */
         body {
@@ -64,14 +64,16 @@
             margin-top: 0;
         }
         
-        /* The .wallet-address style from the first snippet is not used in the final combined body but kept for completeness */
+        /* Wallet Address Style */
         .wallet-address {
             background-color: #e7f3fe;
             border: 1px solid #3498db;
             padding: 10px;
             border-radius: 5px;
-            font-size: 1.2em;
+            font-size: 1.0em;
             word-wrap: break-word; /* Ensures long addresses wrap */
+            font-family: monospace;
+            font-weight: bold;
         }
         
         /* Sidebar Navigation */
@@ -158,6 +160,7 @@
             font-weight: bold;
             text-transform: uppercase;
             font-size: 0.9em;
+            transition: background-color 0.2s;
         }
 
         .primary-btn {
@@ -178,6 +181,15 @@
 
         .secondary-btn:hover {
             background-color: #c0392b;
+        }
+        
+        .tertiary-btn {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .tertiary-btn:hover {
+            background-color: #2980b9;
         }
 
         .roadmap-tag {
@@ -215,6 +227,34 @@
             font-size: 1.4em;
             font-weight: bold;
             color: #2c3e50;
+        }
+        
+        .pool-config-detail {
+            background-color: #ecf0f1; 
+            padding: 10px; 
+            border-radius: 6px; 
+            margin-bottom: 10px;
+        }
+        
+        .pool-config-detail p {
+            margin: 0; 
+        }
+        
+        .pool-config-detail .label {
+            font-size: 0.9em; 
+            color: #7f8c8d; 
+            text-transform: uppercase;
+        }
+        
+        .pool-config-detail .value {
+            font-weight: bold; 
+            font-family: monospace; 
+            word-break: break-all;
+        }
+        
+        .warning-detail {
+            background-color: #f7e7e7; 
+            border: 1px solid #e74c3c;
         }
         /* END NEW STYLES */
 
@@ -372,13 +412,6 @@
 
     <div id="main-content">
 
-        <div id="bitcoin-wallet-info" class="content-section" style="display: none;">
-            <h2>Your Bitcoin Deposit Wallet Address</h2>
-            <div class="wallet-address">
-                bc1q5esdqxxpx0xtld0fn28cnr97lfph3m5jgjshgv
-            </div>
-            <hr>
-        </div>
         <div id="dashboard" class="content-section">
             <h2>Dashboard Overview</h2>
             <p>Welcome to your real-time price monitoring hub. Quickly launch key trackers and configure your view.</p>
@@ -388,50 +421,43 @@
                 <div class="feature-card">
                     <h3>BTC Price Ticker</h3>
                     <p>Continuously updating Bitcoin price with a trend graph.</p>
-                    <button class="action-button primary-btn" onclick="viewTicker('BTC')">Launch Ticker</button>
-                    <button class="action-button secondary-btn" onclick="openSettings('BTC')">Customize View</button>
-                </div>
-
-                <div class="feature-card">
-                    <h3>Custom Ticker Lists</h3>
-                    <p>Build and view custom lists of assets (Crypto, Stocks, Commodities).</p>
-                    <button class="action-button primary-btn" onclick="viewTickerList()">View My Lists (5)</button>
-                    <button class="action-button secondary-btn" onclick="manageTickerLists()">+ Create New List</button>
+                    <button class="action-button primary-btn" onclick="alert('Launching BTC Ticker...')">Launch Ticker</button>
+                    <button class="action-button secondary-btn" onclick="alert('Opening BTC Settings...')">Customize View</button>
                 </div>
 
                 <div class="feature-card">
                     <h3>Market Signals</h3>
                     <p>Set and manage all your asset alerts (Stocks, Crypto, Commodities).</p>
                     <button class="action-button primary-btn" onclick="showSection('price-alerts', document.querySelector('#sidebar .nav-button:nth-child(3)'))">Manage 12 Alerts</button>
-                    <button class="action-button secondary-btn" onclick="addAlert()">+ New Price Alert</button>
+                    <button class="action-button secondary-btn" onclick="alert('Adding New Alert...')">+ New Price Alert</button>
                 </div>
 
                 <div class="feature-card">
                     <h3>Mining Pool Stats</h3>
                     <p>Monitor your operation: hashrate, rewards, and uptime in real-time.</p>
-                    <button class="action-button primary-btn" onclick="viewMiningStats()">View Dashboard</button>
-                    <button class="action-button secondary-btn" onclick="connectPool()">Connect Pool</button>
+                    <button class="action-button primary-btn" onclick="showSection('mining-tools', document.querySelector('#sidebar .nav-button:nth-child(4)'))">View Dashboard</button>
+                    <button class="action-button tertiary-btn" onclick="showPoolConfigModal()">View Pool Config</button>
                 </div>
             </div>
         </div>
-
+        
         <div id="price-alerts" class="content-section" style="display: none;">
             <h2>🔔 Price Alerts Manager</h2>
             <p>Configure custom price alerts with sound and vibratory feedback.</p>
             <div class="feature-grid">
-                <div class="feature-card">
+                <div class="feature-card full-width">
                     <h3>Current Alerts</h3>
                     <ul>
-                        <li>**BTC**: Above $70,000 (Vibrate: Medium)</li>
-                        <li>**ETH**: Below $3,500 (Vibrate: Strong)</li>
-                        <li>**TSLA**: Above $200 (Vibrate: Short)</li>
+                        <li><span style="font-weight: bold; color: #2ecc71;">Active</span>: **BTC** above $70,000 (Vibrate: Medium)</li>
+                        <li><span style="font-weight: bold; color: #f39c12;">Paused</span>: **ETH** below $3,500 (Vibrate: Strong)</li>
+                        <li><span style="font-weight: bold; color: #7f8c8d;">Inactive</span>: **TSLA** above $200 (Vibrate: Short)</li>
                     </ul>
                 </div>
                 <div class="feature-card">
                     <h3>Quick Actions</h3>
                     <p>Create a new alert to be notified when an asset hits a target price.</p>
-                    <button class="action-button primary-btn" onclick="addNewAlertScreen()">+ Set New Alert</button>
-                    <button class="action-button secondary-btn" onclick="testAlertSystem()">Test Sound & Vibrate</button>
+                    <button class="action-button primary-btn" onclick="alert('Opening New Alert Screen...')">+ Set New Alert</button>
+                    <button class="action-button secondary-btn" onclick="alert('Testing Alert System...')">Test Sound & Vibrate</button>
                 </div>
             </div>
         </div>
@@ -444,7 +470,7 @@
                 
                 <div class="feature-card full-width">
                     <h3>✅ Real-Time Miner Status (ASIC-1)</h3>
-                    <div class="metric-window">
+                    <div class="metric-window" style="margin-bottom: 5px;">
                         <p class="metric-label">Status & Uptime</p>
                         <p class="metric-value" style="color: #2ecc71;">RUNNING (18h 45m)</p>
                     </div>
@@ -454,82 +480,71 @@
                             <p class="metric-label">Current Hash Rate</p>
                             <p class="metric-value" id="hash-rate">87.5 TH/s</p>
                         </div>
-
                         <div class="metric-window">
                             <p class="metric-label">Avg Speed (24h)</p>
                             <p class="metric-value" id="avg-speed">85.1 TH/s</p>
                         </div>
-
                         <div class="metric-window">
                             <p class="metric-label">Est. Daily Profit</p>
                             <p class="metric-value" id="daily-profit">$12.55</p>
                         </div>
-
                         <div class="metric-window">
-                            <p class="metric-label">Temperature (Board/Chip)</p>
-                            <p class="metric-value" id="temp">68°C / 72°C</p>
+                            <p class="metric-label">Temperature (Chip)</p>
+                            <p class="metric-value" id="temp">72°C</p>
                         </div>
                     </div>
                     
-                    <p style="text-align: right; font-size: 0.9em; color: #7f8c8d; margin-top: 10px;">Last update: 5 seconds ago</p>
-                    <button class="action-button primary-btn" onclick="showMiningMetricsModal()">View Real-Time Metrics Pop-up</button> <button class="action-button secondary-btn" onclick="viewDetailedMinerLog()">View Detailed Log & Control</button>
+                    <p style="text-align: right; font-size: 0.9em; color: #7f8c8d; margin-top: 10px;">Last update: <span id="last-update">5 seconds ago</span></p>
+                    <button class="action-button primary-btn" onclick="showMiningMetricsModal()">View Full Metrics Pop-up</button> <button class="action-button secondary-btn" onclick="alert('Viewing Detailed Log...')">View Detailed Log & Control</button>
                 </div>
                 
                 <div class="feature-card">
                     <h3>🔗 Current Mining Pool Connection</h3>
                     <p>Displays the active mining pool configuration for your hardware (ASIC-1).</p>
                     
-                    <div style="background-color: #ecf0f1; padding: 10px; border-radius: 6px; margin-bottom: 10px;">
-                        <p style="margin: 0; font-size: 0.9em; color: #7f8c8d; text-transform: uppercase;">Pool Address</p>
-                        <p style="margin: 0; font-weight: bold; font-family: monospace; word-break: break-all;">stratum+tcp://stratum.braiins.com:3333</p>
+                    <div class="pool-config-detail">
+                        <p class="label">Protocol</p>
+                        <p class="value">Stratum V2 (TCP)</p>
                     </div>
                     
-                    <div style="background-color: #ecf0f1; padding: 10px; border-radius: 6px; margin-bottom: 10px;">
-                        <p style="margin: 0; font-size: 0.9em; color: #7f8c8d; text-transform: uppercase;">Worker ID</p>
-                        <p style="margin: 0; font-weight: bold; font-family: monospace; word-break: break-all;">ron47ron1.mining_btc</p>
+                    <div class="pool-config-detail">
+                        <p class="label">Pool Address</p>
+                        <p class="value" id="pool-address-display">stratum+tcp://stratum.braiins.com:3333</p>
                     </div>
                     
-                    <div style="background-color: #f7e7e7; padding: 10px; border-radius: 6px; margin-bottom: 10px; border: 1px solid #e74c3c;">
-                        <p style="margin: 0; font-size: 0.9em; color: #7f8c8d; text-transform: uppercase;">Password</p>
-                        <p style="margin: 0; font-weight: bold; font-family: monospace; word-break: break-all;">Ariel$$12345</p>
+                    <div class="pool-config-detail">
+                        <p class="label">Worker ID</p>
+                        <p class="value">ron47ron1.mining_btc</p>
                     </div>
                     
-                    <button class="action-button primary-btn" onclick="editPoolConfig()">Edit Configuration</button>
+                    <button class="action-button primary-btn" onclick="updatePoolAddress()">SWITCH TO BRAIINS STRATUM V2</button>
+                    <button class="action-button tertiary-btn" onclick="showPoolConfigModal()">Edit Configuration</button>
                 </div>
+                
+                <div class="feature-card">
+                    <h3>🚀 Stratum V2 Upgrade (Braiins)</h3>
+                    <p>Instantly configure your miner to use the Stratum V2 protocol with the new address for enhanced security and decentralization.</p>
+                    <div class="wallet-address">
+                        <span style="font-weight: bold; color: #3498db;">New Pool:</span> stratum2+tcp://v2.stratum.braiins.com/u95GEReVMjK6k5YqiSFNqqTnKU4ypU2Wm8awa6tmbmDmk1bWt
+                    </div>
+                    <button class="action-button primary-btn" style="background-color: #f39c12;" onclick="confirmStratumV2Switch()">Confirm Switch</button>
+                    <button class="action-button secondary-btn" onclick="alert('Reading more about Stratum V2...')">What is Stratum V2?</button>
+                </div>
+                
                 <div class="feature-card">
                     <h3>Global Mining Stats</h3>
                     <p>View Global Hashrate, Hashvalue, and Hashprice in real time.</p>
-                    <button class="action-button primary-btn" onclick="viewGlobalStats()">View Live Data</button>
-                </div>
-
-                <div class="feature-card">
-                    <h3>Mining Tools Manager</h3>
-                    <p>Hardware management and control for mining devices (e.g., Bitaxe, BMM 101).</p>
-                    <button class="action-button primary-btn" onclick="launchManager()">Launch Manager</button>
+                    <button class="action-button primary-btn" onclick="alert('Viewing Global Stats...')">View Live Data</button>
                 </div>
 
                 <div class="feature-card">
                     <h3>Mempool Stats</h3>
                     <p>View Pending Transactions, Fee Pressure, and Blockspace Congestion.</p>
-                    <button class="action-button primary-btn" onclick="viewMempool()">View Real-Time Mempool</button>
+                    <button class="action-button primary-btn" onclick="alert('Viewing Mempool...')">View Real-Time Mempool</button>
                 </div>
                 
 
                 <div class="feature-card">
                     <span class="roadmap-tag">ROADMAP</span>
                     <h3>Solo Mining Tracker</h3>
-                    <p>Track your lottery mining performance.</p>
-                    <button class="action-button primary-btn" disabled>Coming Soon</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="network-data" class="content-section" style="display: none;">
-            <h2>⛓️ Blockchain & Network Data</h2>
-            <p>Track core network metrics for Bitcoin and other supported blockchains.</p>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>Bitcoin Network Data</h3>
-                    <p>Track Block Height, Difficulty, and Epoch Progress.</p>
-                    <button class="action-button primary-btn" onclick="viewBlockData()">View Block Data</button>
-  
+                    <p>Track your lottery mining performanc
