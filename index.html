@@ -547,4 +547,259 @@
                 <div class="feature-card">
                     <span class="roadmap-tag">ROADMAP</span>
                     <h3>Solo Mining Tracker</h3>
-                    <p>Track your lottery mining performanc
+                    <p>Track your lottery mining performance.</p>
+                    <button class="action-button primary-btn" disabled>Coming Soon</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="network-data" class="content-section" style="display: none;">
+            <h2>⛓️ Blockchain & Network Data</h2>
+            <p>Track core network metrics for Bitcoin and other supported blockchains.</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Bitcoin Network Data</h3>
+                    <p>Track Block Height, Difficulty, and Epoch Progress.</p>
+                    <button class="action-button primary-btn" onclick="alert('Viewing Block Data...')">View Block Data</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="app-settings" class="content-section" style="display: none;">
+            <h2>⚙️ App Settings</h2>
+            <p>Configure app themes, notifications, and data synchronization.</p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>Theme Settings</h3>
+                    <p>Switch between Light, Dark, or System themes.</p>
+                    <button class="action-button primary-btn" onclick="alert('Switching to Dark Mode...')">Toggle Dark Mode</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="roadmap" class="content-section" style="display: none;">
+            <h2>💡 Product Roadmap</h2>
+            <p>A look at what's coming next for the Android Monitor application.</p>
+            <div class="feature-grid">
+                <div class="feature-card full-width">
+                    <h3>Phase 1: Q4 2025</h3>
+                    <ul>
+                        <li>**Advanced Charting:** Candlestick charts with indicators.</li>
+                        <li>**Web3 Wallet Integration:** Connect MetaMask and other wallets.</li>
+                        <li>**ASIC Control:** Remote reboot and fan speed adjustment.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="poolConfigModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closePoolConfigModal()">&times;</span>
+        <h2>Current Pool Configuration</h2>
+        
+        <div class="modal-metric-row">
+            <span class="modal-label">Protocol</span>
+            <span class="modal-value">Stratum V1 (TCP)</span>
+        </div>
+        
+        <div class="modal-metric-row">
+            <span class="modal-label">Pool Address</span>
+            <span class="modal-value" id="modal-pool-address">stratum+tcp://stratum.braiins.com:3333</span>
+        </div>
+
+        <div class="modal-metric-row">
+            <span class="modal-label">Worker ID</span>
+            <span class="modal-value">ron47ron1.mining_btc</span>
+        </div>
+
+        <div class="modal-metric-row warning-detail">
+            <span class="modal-label">Password</span>
+            <span class="modal-value status-warn">Ariel$$12345 (Sensitive!)</span>
+        </div>
+        
+        <h3 style="margin-top: 20px;">Suggested Upgrade</h3>
+        <p>Switch to Stratum V2 for better security and features.</p>
+        <button class="action-button primary-btn" onclick="confirmStratumV2Switch(); closePoolConfigModal();">Switch to Stratum V2 Now</button>
+    </div>
+</div>
+
+<div id="metricsModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeMetricsModal()">&times;</span>
+        <h2>Real-Time ASIC Metrics</h2>
+        
+        <div class="modal-metric-row">
+            <span class="modal-label">Device Status</span>
+            <span class="modal-value status-ok">Active</span>
+        </div>
+        
+        <div class="modal-metric-row">
+            <span class="modal-label">Current Hashrate</span>
+            <span class="modal-value">87.5 TH/s</span>
+        </div>
+
+        <div class="modal-metric-row">
+            <span class="modal-label">Accepted Shares (24h)</span>
+            <span class="modal-value">1,502</span>
+        </div>
+
+        <div class="modal-metric-row">
+            <span class="modal-label">Rejected Shares (24h)</span>
+            <span class="modal-value" style="color: #e74c3c;">15 (0.9%)</span>
+        </div>
+
+        <div class="modal-metric-row">
+            <span class="modal-label">Chip Temperature</span>
+            <span class="modal-value">72°C</span>
+        </div>
+        
+        <p style="font-size: 0.8em; color: #7f8c8d; text-align: center; margin-top: 15px;">Data is simulated. In a live application, this would stream via an API.</p>
+    </div>
+</div>
+
+
+<script>
+    // --- Application State and Constants ---
+    const NEW_BRAIINS_POOL = 'stratum2+tcp://v2.stratum.braiins.com/u95GEReVMjK6k5YqiSFNqqTnKU4ypU2Wm8awa6tmbmDmk1bWt';
+    const OLD_BRAIINS_POOL = 'stratum+tcp://stratum.braiins.com:3333';
+    
+    // --- Sidebar and Section Management ---
+    function toggleMenu() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('open');
+    }
+
+    function showSection(sectionId, clickedButton) {
+        // Hide all sections
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.style.display = 'none';
+        });
+
+        // Show the requested section
+        document.getElementById(sectionId).style.display = 'block';
+
+        // Update active state in sidebar
+        document.querySelectorAll('.nav-button').forEach(button => {
+            button.classList.remove('active');
+        });
+
+        if (clickedButton) {
+            clickedButton.classList.add('active');
+        }
+
+        // 🌟 FIX APPLIED HERE: Collapse menu on mobile after selection 
+        // Checks if the window is smaller than the desktop breakpoint (768px)
+        if (window.innerWidth < 768) {
+            // Check if the sidebar is open before attempting to close it
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('open')) {
+                toggleMenu(); // Closes the menu
+            }
+        }
+    }
+    
+    // Initialize: Show the dashboard on load
+    document.addEventListener('DOMContentLoaded', () => {
+        // Pass the active button to showSection for initial styling
+        showSection('dashboard', document.querySelector('#sidebar .nav-button.active'));
+    });
+
+    // --- Modal Functions ---
+    
+    function showPoolConfigModal() {
+        document.getElementById('poolConfigModal').style.display = 'block';
+    }
+    
+    function closePoolConfigModal() {
+        document.getElementById('poolConfigModal').style.display = 'none';
+    }
+    
+    function showMiningMetricsModal() {
+        document.getElementById('metricsModal').style.display = 'block';
+    }
+    
+    function closeMetricsModal() {
+        document.getElementById('metricsModal').style.display = 'none';
+    }
+    
+    // Close modals if the user clicks anywhere outside of them
+    window.onclick = function(event) {
+        const poolModal = document.getElementById('poolConfigModal');
+        const metricsModal = document.getElementById('metricsModal');
+        
+        if (event.target === poolModal) {
+            poolModal.style.display = "none";
+        }
+        if (event.target === metricsModal) {
+            metricsModal.style.display = "none";
+        }
+    }
+
+    // --- Core Pool Management Function ---
+    
+    /**
+     * Confirms the switch and updates the displayed pool address 
+     * in the Mining Tools Hub and the modal.
+     */
+    function confirmStratumV2Switch() {
+        const confirmation = confirm("Are you sure you want to switch the MINER CONFIGURATION to the Stratum V2 address?\n\nNew Address: " + NEW_BRAIINS_POOL);
+        
+        if (confirmation) {
+            // Update the display elements
+            document.getElementById('pool-address-display').textContent = NEW_BRAIINS_POOL;
+            document.getElementById('modal-pool-address').textContent = NEW_BRAIINS_POOL;
+            
+            // Provide feedback
+            alert("✅ SUCCESS: Your mining configuration has been updated to Stratum V2! A command to update the physical ASIC would be sent now.");
+            
+            // Optional: Re-label the button for consistency
+            document.querySelector('#mining-tools .feature-card:nth-child(2) .action-button.primary-btn').textContent = "REVERT TO STRATUM V1";
+            document.querySelector('#mining-tools .feature-card:nth-child(2) .action-button.primary-btn').onclick = revertToStratumV1;
+            
+        } else {
+            alert("Switch cancelled.");
+        }
+    }
+    
+    /**
+     * Placeholder function to revert to the old pool for demonstration.
+     */
+     function revertToStratumV1() {
+        // In a real app, this would send a command to the miner
+        document.getElementById('pool-address-display').textContent = OLD_BRAIINS_POOL;
+        document.getElementById('modal-pool-address').textContent = OLD_BRAIINS_POOL;
+        
+        alert("🔄 REVERTED: The mining configuration has been reverted to the original Stratum V1 address.");
+        
+        // Restore the original button state
+        document.querySelector('#mining-tools .feature-card:nth-child(2) .action-button.primary-btn').textContent = "SWITCH TO BRAIINS STRATUM V2";
+        document.querySelector('#mining-tools .feature-card:nth-child(2) .action-button.primary-btn').onclick = updatePoolAddress;
+    }
+    
+    // A simplified update function that leads to the confirmation
+    function updatePoolAddress() {
+        confirmStratumV2Switch();
+    }
+    
+    // --- Placeholder Functions for Button Clicks (Kept for completeness) ---
+    function viewTicker(asset) { /* Functionality here */ }
+    function viewTickerList() { /* Functionality here */ }
+    function manageTickerLists() { /* Functionality here */ }
+    function addAlert() { /* Functionality here */ }
+    function viewMiningStats() { /* Functionality here */ }
+    function connectPool() { /* Functionality here */ }
+    function addNewAlertScreen() { /* Functionality here */ }
+    function testAlertSystem() { /* Functionality here */ }
+    function viewDetailedMinerLog() { /* Functionality here */ }
+    function editPoolConfig() { showPoolConfigModal(); }
+    function viewGlobalStats() { /* Functionality here */ }
+    function launchManager() { /* Functionality here */ }
+    function viewMempool() { /* Functionality here */ }
+    function viewBlockData() { /* Functionality here */ }
+
+</script>
+</body>
+</html>
